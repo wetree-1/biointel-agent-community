@@ -1,0 +1,54 @@
+id: scrna-full-analysis
+name: 单细胞全流程分析
+version: 1.0.0
+domain: scrna-seq
+author: platform-team
+description: 从质控到细胞类型注释的单细胞 RNA 测序分析 Agent
+
+scenario:
+  title: 新样本单细胞测序数据分析
+  summary: 适用于 10x Genomics 单细胞转录组数据的标准分析流程
+
+capabilities:
+  - 自动质控与过滤
+  - 归一化与降维
+  - 无监督聚类
+  - 细胞类型注释
+
+skill_chain:
+  - skill: scrna-qc-filter
+    name: 单细胞质控过滤
+    params:
+      mito_threshold: 0.2
+  - skill: scrna-normalize
+    name: 归一化降维
+    input_from: scrna-qc-filter.filtered_matrix
+  - skill: scrna-cluster
+    name: 无监督聚类
+    input_from: scrna-normalize.normalized_matrix
+  - skill: scrna-annotate
+    name: 细胞类型注释
+    input_from: scrna-cluster.cluster_labels
+
+io:
+  input:
+    - name: count_matrix
+      type: h5ad
+      description: 原始或预处理后的表达矩阵
+  output:
+    - name: annotated_matrix
+      type: h5ad
+      description: 带注释结果的表达矩阵
+    - name: analysis_report
+      type: html
+      description: 分析报告
+
+evaluation:
+  - name: annotation_confidence
+    threshold: 0.7
+    description: 细胞注释平均置信度
+
+tags:
+  - scrna
+  - pipeline
+  - demo

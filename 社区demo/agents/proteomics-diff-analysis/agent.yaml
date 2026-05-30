@@ -1,0 +1,42 @@
+id: proteomics-diff-analysis
+name: 蛋白质组差异分析
+version: 0.9.0
+domain: proteomics
+author: platform-team
+description: 搜库定量后的差异蛋白筛选与基础统计
+
+scenario:
+  title: 两组样本差异蛋白分析
+  summary: 适用于 label-free 定量蛋白质组数据的差异分析
+
+capabilities:
+  - 蛋白鉴定结果导入
+  - 差异蛋白筛选
+  - 火山图数据准备
+
+skill_chain:
+  - skill: proteo-import
+    name: 蛋白鉴定结果导入
+  - skill: proteo-diff
+    name: 差异蛋白分析
+    input_from: proteo-import.protein_table
+  - skill: proteo-volcano
+    name: 火山图统计
+    input_from: proteo-diff.deg_table
+
+io:
+  input:
+    - name: protein_table
+      type: tsv
+      description: 蛋白定量表
+  output:
+    - name: deg_table
+      type: tsv
+      description: 差异蛋白列表
+    - name: volcano_data
+      type: json
+      description: 火山图数据
+
+tags:
+  - proteomics
+  - demo

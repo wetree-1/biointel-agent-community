@@ -1,0 +1,67 @@
+id: oncology-demo
+name: 肿瘤分析 Agent（张三登记）
+version: 0.2.0
+domain: oncology
+author: 危楚钰
+description: 肿瘤分析，登记练习用
+
+scenario:
+  title: 肿瘤组学数据标准分析
+  summary: 适用于 TCGA 等肿瘤转录组/突变数据的常规分析流程（Demo 占位）
+
+capabilities:
+  - 样本质控与临床信息匹配
+  - 差异表达分析
+  - 通路富集
+  - 生存分析（Kaplan-Meier）
+
+skill_chain:
+  - skill: oncology-qc
+    name: 肿瘤数据质控
+    params:
+      min_samples: 10
+  - skill: oncology-deg
+    name: 差异表达分析
+    input_from: oncology-qc.clean_matrix
+  - skill: oncology-enrichment
+    name: 通路富集
+    input_from: oncology-deg.deg_table
+  - skill: oncology-survival
+    name: 生存分析
+    input_from: oncology-qc.clinical_data
+
+io:
+  input:
+    - name: expression_matrix
+      type: csv
+      description: 基因表达矩阵（行=基因，列=样本）
+    - name: clinical_data
+      type: csv
+      description: 样本临床信息（生存时间、分组等）
+  output:
+    - name: deg_results
+      type: csv
+      description: 差异表达基因列表
+    - name: enrichment_report
+      type: html
+      description: 通路富集结果
+    - name: survival_plot
+      type: png
+      description: 生存曲线图
+
+evaluation:
+  - name: reproducibility
+    threshold: 0.8
+    description: 相同输入重复运行，核心结果一致率（老师强调的可复现性）
+  - name: deg_overlap
+    threshold: 0.9
+    description: 与标准流程 DE 基因集重叠度
+
+tags:
+  - oncology
+  - demo
+  - practice
+
+known_issues:
+  - 本条目为 Phase 1 练手登记，skill id 为 mock，未接平台
+  - 平台肿瘤 Agent 可复现率低，待同学试用后补充真实问题

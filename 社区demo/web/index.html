@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent 社区 Demo</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Agent 社区</h1>
+    <p>BioIntelOS 平台 Agent 能力目录 · Demo</p>
+  </header>
+
+  <main>
+    <div id="view-list">
+      <div class="toolbar">
+        <input type="search" id="search" placeholder="搜索 Agent 名称或描述…" />
+        <select id="domain-filter"></select>
+      </div>
+      <div id="agent-grid" class="agent-grid"></div>
+    </div>
+
+    <div id="view-detail" class="hidden">
+      <a href="#" id="back-btn" class="back-link">← 返回列表</a>
+      <div class="detail-header">
+        <div class="meta" id="detail-meta"></div>
+        <h2 id="detail-title"></h2>
+        <p id="detail-desc" style="margin-top:0.5rem;color:#555"></p>
+        <div class="detail-actions">
+          <button type="button" id="btn-use" class="btn btn-primary">前往使用（待接平台）</button>
+          <button type="button" id="btn-feedback" class="btn btn-secondary">提意见（待接）</button>
+        </div>
+      </div>
+      <div class="section">
+        <h3>适用场景</h3>
+        <div id="detail-scenario"></div>
+      </div>
+      <div class="section">
+        <h3>能力</h3>
+        <div id="detail-capabilities"></div>
+      </div>
+      <div class="section">
+        <h3>调用链（skill_chain）</h3>
+        <div id="detail-chain"></div>
+      </div>
+      <div class="section">
+        <h3>输入 / 输出</h3>
+        <div id="detail-io"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>智能体社区 Demo · 数据来自 agents/*/agent.yaml</footer>
+  <script src="js/app.js"></script>
+</body>
+</html>

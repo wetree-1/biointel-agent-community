@@ -1,0 +1,52 @@
+# agent.yaml 模板
+# 复制本文件到 agents/你的-agent-id/agent.yaml 后修改
+
+id: your-agent-id          # 必填，与文件夹名一致
+name: Agent 显示名称
+version: 1.0.0
+domain: scrna-seq          # 领域标签，如 scrna-seq / proteomics / oncology
+author: 维护人
+description: 一句话说明这个 Agent 做什么
+
+scenario:
+  title: 适用场景标题
+  summary: 什么情况下用这个 Agent
+
+capabilities:
+  - 能力点 1
+  - 能力点 2
+
+# skill_chain：按顺序引用 Skills 组注册的 Skill id
+skill_chain:
+  - skill: skill-id-from-skills-group
+    name: 步骤显示名
+    params: {}             # 可选
+  - skill: next-skill-id
+    name: 下一步
+    input_from: skill-id-from-skills-group.output_name
+
+io:
+  input:
+    - name: input_name
+      type: h5ad           # 或 fastq / csv 等
+      description: 输入说明
+  output:
+    - name: output_name
+      type: html
+      description: 输出说明
+
+# 验收指标（老师强调的「好不好要有体现」）
+evaluation:
+  - name: metric_name
+    threshold: 0.7
+    description: 指标含义，如可复现率、注释置信度
+
+tags:
+  - demo
+
+# Phase 2 预留（讨论后启用）
+# workflow:
+#   baseline: baseline-agent-v1    # 基于哪套标准编排
+#   steps: [...]                   # 流程步骤、报错策略
+# known_issues:
+#   - 任务拆分可能丢失上下文（肿瘤 Agent 诊断示例）
