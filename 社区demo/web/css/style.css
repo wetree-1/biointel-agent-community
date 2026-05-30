@@ -29,6 +29,24 @@ header p {
   margin-top: 0.25rem;
 }
 
+.site-nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.site-nav a {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  color: #fff;
+  text-decoration: underline;
+}
+
 main {
   max-width: 960px;
   margin: 0 auto;
@@ -243,4 +261,119 @@ footer {
 
 .hidden {
   display: none !important;
+}
+
+/* —— 登记表单 —— */
+.register-main {
+  max-width: 720px;
+}
+
+.notice {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 10px;
+  padding: 1rem 1.15rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.notice code {
+  background: #fff3cd;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+.register-form label {
+  display: block;
+  font-size: 0.85rem;
+  color: #444;
+  margin-bottom: 0.75rem;
+}
+
+.register-form label.full {
+  margin-top: 0.5rem;
+}
+
+.register-form input,
+.register-form textarea {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
+}
+
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.req {
+  color: #c62828;
+}
+
+.hint {
+  font-size: 0.82rem;
+  color: #666;
+  margin-bottom: 0.75rem;
+}
+
+.hint code {
+  background: #f0f0f0;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+}
+
+.skill-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 0.5rem;
+  align-items: end;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px dashed #eee;
+}
+
+@media (max-width: 700px) {
+  .skill-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btn-remove {
+  padding: 0.45rem 0.65rem;
+  min-width: 2.5rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.yaml-output {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  max-height: 420px;
+  margin: 0.75rem 0 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
 }

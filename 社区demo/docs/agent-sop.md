@@ -5,7 +5,32 @@
 
 ---
 
-## 一、整体流程（和你题库项目对齐）
+## 〇、组员登记（推荐：网站表单，无需本地环境）
+
+**登记表单：** 打开目录页顶部 **「登记 Agent」**，或访问 `register.html`。
+
+```
+组员：网页填表 → 生成 / 下载 agent.yaml → 发群或交给负责人
+负责人：放入 社区demo/agents/<id>/agent.yaml → build → git push
+```
+
+公网地址示例：`https://wetree-1.github.io/biointel-agent-community/register.html`
+
+**负责人入库步骤：**
+
+```powershell
+# 在仓库根目录（clone 后的文件夹内，路径因人而异）
+mkdir 社区demo\agents\新-agent-id
+# 将下载的 agent.yaml 放入该文件夹
+python tools\build_github_dist.py
+git add .
+git commit -m "Add agent: 新-agent-id"
+git push
+```
+
+---
+
+## 一、整体流程（维护者 / 会 Git 的同学）
 
 | 你熟悉的（题库检索） | 本项目（Agent 社区 Demo） |
 |---------------------|---------------------------|
@@ -42,10 +67,13 @@
 **复制现有 Agent 改最快：**
 
 ```powershell
-cd "d:\智能体社区\社区demo\agents"
+# 在仓库根目录下执行（先 git clone 仓库到本机任意位置）
+cd 社区demo/agents
 mkdir my-new-agent
-copy scrna-full-analysis\agent.yaml my-new-agent\agent.yaml
+copy scrna-full-analysis/agent.yaml my-new-agent/agent.yaml
 ```
+
+Windows PowerShell 也可用 `Copy-Item`；Mac/Linux 用 `cp`。
 
 然后用编辑器打开 `my-new-agent/agent.yaml`，改下面这些 **必填项**：
 
@@ -78,8 +106,10 @@ copy scrna-full-analysis\agent.yaml my-new-agent\agent.yaml
 
 ```powershell
 pip install pyyaml
-python "d:\智能体社区\社区demo\scripts\export_json.py"
+python tools/build_github_dist.py
 ```
+
+（`build` 会自动调用 `export_json.py`。）
 
 **成功时会看到：**
 
@@ -107,12 +137,13 @@ python "d:\智能体社区\社区demo\scripts\export_json.py"
 
 ## 四、③ 本地预览
 
+双击仓库根目录 **`run.bat`**，或：
+
 ```powershell
-cd "d:\智能体社区\社区demo\web"
-python -m http.server 8080
+python tools/preview_server.py
 ```
 
-浏览器打开：**http://localhost:8080**
+浏览器打开终端里显示的地址（如 http://127.0.0.1:8765/）。
 
 - 列表页：应能看到新 Agent
 - 点击卡片：详情页应显示 skill_chain、输入输出
@@ -126,8 +157,7 @@ python -m http.server 8080
 简要：
 
 ```powershell
-cd "d:\智能体社区"
-python tools\build_github_dist.py
+python tools/build_github_dist.py
 git add . && git commit -m "update" && git push
 ```
 
@@ -138,12 +168,8 @@ git add . && git commit -m "update" && git push
 ## 六、快速命令备忘
 
 ```powershell
-# 构建（yaml → json → dist）
-python "d:\智能体社区\tools\build_github_dist.py"
-
-# 本地看效果（或双击 run.bat）
-cd "d:\智能体社区\dist"
-python -m http.server 8080
+python tools/build_github_dist.py    # 构建
+python tools/preview_server.py       # 本地预览
 ```
 
 ---
@@ -152,7 +178,8 @@ python -m http.server 8080
 
 | 路径 | 作用 |
 |------|------|
-| `agents/*/agent.yaml` | Agent 源数据（你要编辑的） |
+| `web/register.html` | **组员登记表单**（生成 yaml） |
+| `agents/*/agent.yaml` | Agent 源数据（负责人入库） |
 | `docs/templates/agent.yaml` | 空白模板 |
 | `scripts/export_json.py` | 导出脚本（build 会自动调用） |
 | `web/data/agents.json` | 网页数据（自动生成，勿手改） |
